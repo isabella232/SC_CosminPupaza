@@ -35,7 +35,7 @@ class TestCase: FBSnapshotTestCase {
   
   override func setUp() {
     super.setUp()
-    recordMode = false
+    recordMode = true
   }
   
   func testView() {
