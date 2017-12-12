@@ -165,7 +165,7 @@ At this point, you should know how to test your app's UI with `FBSnapshotTestCas
 
 https://github.com/facebookarchive/ios-snapshot-test-case
 
-Speaking of testing, do you know how many testers does it take to change a light bulb? None: testers do not fix problems - they just find them! :]
+Speaking of testing, do you know how many testers it takes to change a light bulb? None: testers do not fix problems - they just find them! :]
 
 All right, I'm out! :]
 
