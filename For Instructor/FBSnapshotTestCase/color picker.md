@@ -1,8 +1,24 @@
+# Screencast Metadata
+
+## Screencast Title
+
+FBSnapshotTestCase: Testing the UI
+
+## Screencast Description
+
+Learn all about FBSnapshotTestCase, an UI snapshot testing framework developed by Facebook.
+
+## Language, Editor and Platform versions used in this screencast
+
+* **Language:** Swift 4
+* **Platform:** iOS 11
+* **Editor**: Xcode 9
+
 # FBSnapshotTestCase: Testing the UI
 
 ## Introduction
 
-Hey what’s up everybody, this is [instructor's name]. In today's screencast I'm going to introduce you to a very popular UI testing framework developed by Facebook called `FBSnapshotTestCase`.
+Hey what’s up everybody, this is Brian. In today's screencast I'm going to introduce you to a very popular UI testing framework developed by Facebook called `FBSnapshotTestCase`.
 
 Before we begin, I would like to thank Cosmin Pupăză for preparing the materials for this screencast and David Worsham for acting as tech editor. Don't forget to check them out on Twitter! :]
 
@@ -12,7 +28,7 @@ The app you are going to test in this screencast is a simple color picker. It ge
 
 ## Demo
  
-Before running any test, you should define the folder paths where the snapshots will be saved. Add the `FB_REFERENCE_IMAGE_DIR` and `IMAGE_DIFF_DIR` environment variables to the `Color Picker` scheme's run settings and configure their values. The former sets the reference snapshots folder, while the latter takes care of the test images location:
+Before running any test, you should first define the folder paths where the snapshots will be saved. Add the `FB_REFERENCE_IMAGE_DIR` and `IMAGE_DIFF_DIR` environment variables to the `Color Picker` scheme's run settings and configure their values. The former sets the reference snapshots folder, while the latter takes care of the test images location:
 
 ```
 FB_REFERENCE_IMAGE_DIR  $(SOURCE_ROOT)/Tests/Original Images
@@ -141,7 +157,7 @@ Now switch back to your `Tests` class and add the `testLabelsAppearance()` test 
 
 ```
 func testLabelsAppearance() {
-    usesDrawViewHierarchyInRect = true
+	usesDrawViewHierarchyInRect = true
     _ = controller.view
     
     FBSnapshotVerifyView(controller.redLabel, identifier: "red")
