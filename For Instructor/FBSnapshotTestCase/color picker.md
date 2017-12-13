@@ -6,7 +6,7 @@ FBSnapshotTestCase: Testing the UI
 
 ## Screencast Description
 
-Learn all about FBSnapshotTestCase, an UI snapshot testing framework developed by Facebook.
+Learn all you need to know about FBSnapshotTestCase, an UI snapshot testing framework developed by Facebook.
 
 ## Language, Editor and Platform versions used in this screencast
 
