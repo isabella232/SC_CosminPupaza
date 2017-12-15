@@ -2,11 +2,11 @@
 
 ## Screencast Title
 
-FBSnapshotTestCase: Testing the UI
+`FBSnapshotTestCase`: Testing the UI
 
 ## Screencast Description
 
-Learn all you need to know about FBSnapshotTestCase, a very popular UI snapshot testing framework developed by Facebook.
+Learn all you need to know about `FBSnapshotTestCase`, a very popular UI snapshot testing framework developed by Facebook.
 
 ## Language, Editor and Platform versions used in this screencast
 
@@ -99,7 +99,7 @@ Now set the `recordMode` property to `true` and run the test. It fails and the l
 
 Set the `recordMode` property to `false` and run the test again - it works this time. Change the red label's color to green, the green's one to blue and the blue one's to red in Interface Builder and run it once more. It fails now and the labels test snapshots are created at the specific location. Notice the identifiers in the images names - really cool! :]
 
-You can add the device type, operating system version and screen size to the snapshot images names. Give it a shot with the sliders by adding the `testSliders()` test method to the `Tests` class. Set the framework's `isDeviceAgnostic` property to `true` to add more info to the snapshots names, load the view controller's view and test the sliders by adding an identifier to each slider test function call as before.  
+You can add the device type, operating system version and screen size to the snapshot images names. Give it a shot with the sliders by adding the `testSliders()` test method to the `Tests` class. Set the framework's `isDeviceAgnostic` property to `true` first to add more info to the snapshots names. Then load the view controller's view and test the sliders by adding an identifier to each slider test function call as before.  
 
 ```
 func testSliders() {
@@ -153,7 +153,7 @@ override func viewDidLoad() {
 }
 ```
 
-Now switch back to your `Tests` class and add the `testLabelsAppearance()` test method to it. Set the framework's `usesDrawViewHierarchyInRect` property  to `true` first in order to render the view's hierarchy properly and enable the `UIAppearance` proxy. Then load the view controller's view and test the labels by adding an identifier to each label test function call. 
+Now switch back to your `Tests` class and add the `testLabelsAppearance()` test method to it. Set the framework's `usesDrawViewHierarchyInRect` property  to `true` first in order to render the view's hierarchy properly and enable the `UIAppearance` proxy while testing. Then load the view controller's view and test the labels by adding an identifier to each label test function call. 
 
 ```
 func testLabelsAppearance() {
