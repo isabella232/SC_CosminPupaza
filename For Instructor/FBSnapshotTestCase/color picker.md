@@ -27,6 +27,8 @@ All right, back to the framework! `FBSnapshotTestCase` tests your app's user int
 The app you are going to test in this screencast is a simple color picker. It generates a custom color and uses it to set the app's main screen background. Let's write some tests for it! :]
 
 ## Demo
+
+The screencast's sample project uses `Cocoapods` to integrate the testing framework. This means you need to open the project's workspace instead of the project itself so that everything works properly.
  
 Before running any test, you should first define the folder paths where the snapshots will be saved. Add the `FB_REFERENCE_IMAGE_DIR` and `IMAGE_DIFF_DIR` environment variables to the `Color Picker` scheme's run settings and configure their values. The former sets the reference snapshots folder, while the latter takes care of the test images location:
 
