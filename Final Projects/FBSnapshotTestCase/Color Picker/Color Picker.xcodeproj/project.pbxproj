@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F2679F41FF347F200E255BE /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2679F51FF347F200E255BE /* FBSnapshotTestCase.framework */; };
+		1F2679F61FF3483100E255BE /* Pods_Color_Picker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2679F71FF3483100E255BE /* Pods_Color_Picker.framework */; };
 		1F8541F11FDC2C840099D2AC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F8541F01FDC2C830099D2AC /* Default-568h@2x.png */; };
 		1F8541F31FDC2DD70099D2AC /* ColorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8541F21FDC2DD70099D2AC /* ColorController.swift */; };
 		1F8541FB1FDC369A0099D2AC /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8541FA1FDC369A0099D2AC /* Tests.swift */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		022049851C86C02FD70F5A2F /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0ADFC1268A025B3DA4A6E826 /* Pods-Color Picker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Color Picker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Color Picker/Pods-Color Picker.debug.xcconfig"; sourceTree = "<group>"; };
+		1F2679F51FF347F200E255BE /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F2679F71FF3483100E255BE /* Pods_Color_Picker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Color_Picker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F8541F01FDC2C830099D2AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1F8541F21FDC2DD70099D2AC /* ColorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorController.swift; sourceTree = "<group>"; };
 		1F8541F81FDC369A0099D2AC /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2679F61FF3483100E255BE /* Pods_Color_Picker.framework in Frameworks */,
+				1F2679F41FF347F200E255BE /* FBSnapshotTestCase.framework in Frameworks */,
 				3E3A3073AD8E0068F291582B /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +133,8 @@
 		F7EAA5454E62C489472A7759 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F2679F71FF3483100E255BE /* Pods_Color_Picker.framework */,
+				1F2679F51FF347F200E255BE /* FBSnapshotTestCase.framework */,
 				F12EE66E395DA9E1F7952781 /* Pods_Color_Picker.framework */,
 				C73008FE1D934B7DAA151D6F /* Pods_Tests.framework */,
 			);
