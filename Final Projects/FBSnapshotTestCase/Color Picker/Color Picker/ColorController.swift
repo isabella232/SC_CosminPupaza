@@ -29,7 +29,7 @@
 import UIKit
 
 class ColorController: UIViewController {
-
+  
   @IBOutlet weak var redLabel: UILabel!
   @IBOutlet weak var greenLabel: UILabel!
   @IBOutlet weak var blueLabel: UILabel!
@@ -52,6 +52,7 @@ class ColorController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    UILabel.appearance().textColor = UIColor.gray
+    UILabel.appearance().textColor = UIColor.orange
   }
 }
+

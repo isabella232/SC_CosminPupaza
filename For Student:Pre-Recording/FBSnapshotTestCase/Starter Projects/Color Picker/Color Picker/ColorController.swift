@@ -29,7 +29,7 @@
 import UIKit
 
 class ColorController: UIViewController {
-
+  
   @IBOutlet weak var redLabel: UILabel!
   @IBOutlet weak var greenLabel: UILabel!
   @IBOutlet weak var blueLabel: UILabel!
@@ -50,3 +50,4 @@ class ColorController: UIViewController {
     view.backgroundColor = color
   }
 }
+

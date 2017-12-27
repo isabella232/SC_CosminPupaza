@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,7 +14,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ColorController" customModule="Color_Picker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Red" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEL-1q-Nya">
@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="kzf-Fk-tfg">
-                                <rect key="frame" x="128" y="65" width="144" height="31"/>
+                                <rect key="frame" x="128" y="65" width="199" height="31"/>
                                 <connections>
                                     <action selector="generateColor" destination="BYZ-38-t0r" eventType="valueChanged" id="4yW-TT-IxH"/>
                                 </connections>
@@ -36,7 +36,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="cIw-r3-GBt">
-                                <rect key="frame" x="128" y="137" width="144" height="31"/>
+                                <rect key="frame" x="128" y="137" width="199" height="31"/>
                                 <connections>
                                     <action selector="generateColor" destination="BYZ-38-t0r" eventType="valueChanged" id="h6w-My-TcI"/>
                                 </connections>
@@ -48,19 +48,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="255" translatesAutoresizingMaskIntoConstraints="NO" id="vkN-ST-hG7">
-                                <rect key="frame" x="128" y="207" width="144" height="31"/>
+                                <rect key="frame" x="128" y="207" width="199" height="31"/>
                                 <connections>
                                     <action selector="generateColor" destination="BYZ-38-t0r" eventType="valueChanged" id="LQR-Sv-8TI"/>
                                 </connections>
                             </slider>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wut-EG-mFW">
-                                <rect key="frame" x="135.5" y="287" width="51" height="31"/>
+                                <rect key="frame" x="163" y="287" width="51" height="31"/>
                                 <connections>
                                     <action selector="generateColor" destination="BYZ-38-t0r" eventType="valueChanged" id="Ocj-fb-k3k"/>
                                 </connections>
                             </switch>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="QEL-1q-Nya" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="0ex-pX-TJs"/>
                             <constraint firstItem="vkN-ST-hG7" firstAttribute="top" secondItem="cIw-r3-GBt" secondAttribute="bottom" constant="40" id="1Kz-ch-x7u"/>

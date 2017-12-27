@@ -1,6 +1,0 @@
-framework module Pods_Color_Picker {
-  umbrella header "Pods-Color Picker-umbrella.h"
-
-  export *
-  module * { export * }
-}

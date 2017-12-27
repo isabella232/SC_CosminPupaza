@@ -30,12 +30,12 @@ import FBSnapshotTestCase
 @testable import Color_Picker
 
 class Tests: FBSnapshotTestCase {
-  
+ 
   let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! ColorController
   
   override func setUp() {
     super.setUp()
-    recordMode = true
+    recordMode = false
   }
   
   func testView() {
@@ -75,7 +75,7 @@ class Tests: FBSnapshotTestCase {
     FBSnapshotVerifyView(controller.alphaSwitch, identifier: "view")
     FBSnapshotVerifyLayer(controller.alphaSwitch.layer, identifier: "layer")
   }
-
+  
   func testLabelsAppearance() {
     usesDrawViewHierarchyInRect = true
     _ = controller.view
