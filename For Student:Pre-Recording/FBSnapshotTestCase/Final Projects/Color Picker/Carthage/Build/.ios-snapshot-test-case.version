@@ -1,0 +1,9 @@
+{
+  "commitish" : "2.1.4",
+  "iOS" : [
+    {
+      "name" : "FBSnapshotTestCase",
+      "hash" : "c2ec2a252a5eb39bfb850047669301c309e5f5f4010e8d746f59bb7d0ad429b2"
+    }
+  ]
+}
