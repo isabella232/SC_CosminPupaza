@@ -27,10 +27,11 @@
 /// THE SOFTWARE.
 
 import FBSnapshotTestCase
+@testable import Color_Picker
 
 class Tests: FBSnapshotTestCase {
  
-  let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! ColorController
+  let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! Color_Picker.ColorController
   
   override func setUp() {
     super.setUp()

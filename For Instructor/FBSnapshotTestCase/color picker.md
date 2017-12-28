@@ -36,10 +36,11 @@ FB_REFERENCE_IMAGE_DIR  $(SOURCE_ROOT)/Tests/Original Images
 IMAGE_DIFF_DIR          $(SOURCE_ROOT)/Tests/Different Images
 ```
 
-Next import the `FBSnapshotCase` framework in `Tests.swift` and make your custom `Tests` class extend `FBSnapshotTestCase`. Everything works just fine, so we've got autocomplete! :]
+Next import the `FBSnapshotCase` framework and `Color_Picker` module in `Tests.swift` and make your custom `Tests` class extend `FBSnapshotTestCase`. Everything works just fine, so we've got autocomplete! :]
 
 ```
 import FBSnapshotTestCase
+@testable import Color_Picker
 
 class Tests: FBSnapshotTestCase {
     
@@ -48,7 +49,7 @@ class Tests: FBSnapshotTestCase {
 
 Now store a reference to the app's main view controller from the storyboard by adding the following line of code to the `Tests` class. It will come in handy later on:
 
-    let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! ColorController
+    let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! Color_Picker.ColorController
 
 
 You create reference snapshots in recording mode, so you have to set this up for all tests in the `Tests` class. Add the `setUp()` method to the class and set the framework's `recordMode` property to `true` inside it:
