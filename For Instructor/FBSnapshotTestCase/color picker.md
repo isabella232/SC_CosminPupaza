@@ -36,11 +36,10 @@ FB_REFERENCE_IMAGE_DIR  $(SOURCE_ROOT)/Tests/Original Images
 IMAGE_DIFF_DIR          $(SOURCE_ROOT)/Tests/Different Images
 ```
 
-Next import the `FBSnapshotCase` framework and `Color Picker` module in `Tests.swift` and make your custom `Tests` class extend `FBSnapshotTestCase`. Everything works just fine, so we've got autocomplete! :]
+Next import the `FBSnapshotCase` framework in `Tests.swift` and make your custom `Tests` class extend `FBSnapshotTestCase`. Everything works just fine, so we've got autocomplete! :]
 
 ```
 import FBSnapshotTestCase
-@testable import Color_Picker
 
 class Tests: FBSnapshotTestCase {
     

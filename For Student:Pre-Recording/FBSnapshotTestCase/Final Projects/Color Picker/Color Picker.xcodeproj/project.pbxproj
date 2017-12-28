@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F641F0A1FF58B6000D283DA /* ColorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8B9D371FF4318400233E81 /* ColorController.swift */; };
 		1F841E6F1FF4389E00A3DE25 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F841E6C1FF436AD00A3DE25 /* FBSnapshotTestCase.framework */; };
 		1F8B9D361FF42E3B00233E81 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F8B9D351FF42E3B00233E81 /* Default-568h@2x.png */; };
 		1F8B9D381FF4318400233E81 /* ColorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8B9D371FF4318400233E81 /* ColorController.swift */; };
@@ -237,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8B9D401FF432E700233E81 /* Tests.swift in Sources */,
+				1F641F0A1FF58B6000D283DA /* ColorController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

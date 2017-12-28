@@ -27,7 +27,6 @@
 /// THE SOFTWARE.
 
 import FBSnapshotTestCase
-@testable import Color_Picker
 
 class Tests: FBSnapshotTestCase {
  
