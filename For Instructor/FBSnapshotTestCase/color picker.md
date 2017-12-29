@@ -24,10 +24,9 @@ Before we begin, I would like to thank Cosmin Pupăză for preparing the materia
 
 All right, back to the framework! `FBSnapshotTestCase` tests your app's user interface by taking a snapshot of the UI and comparing it to a reference one. If both images are the same, the test succeeds. Otherwise, it fails. It's as simple as that! You just add the framework as a `Carthage` dependency to your app's testing target and you are ready to go.
 
-The app you are going to test in this screencast is a simple color picker. It generates a custom color and uses it to set the app's main screen background. Let's write some tests for it! :]
-
 ## Demo
 
+The app you are going to test in this screencast is a simple color picker. It generates a custom color and uses it to set the app's main screen background. Let's write some tests for it! :]
  
 Before running any test, you should first define the folder paths where the snapshots will be saved. Add the `FB_REFERENCE_IMAGE_DIR` and `IMAGE_DIFF_DIR` environment variables to the `Color Picker` scheme's run settings and configure their values. The former sets the reference snapshots folder, while the latter takes care of the test images location:
 
