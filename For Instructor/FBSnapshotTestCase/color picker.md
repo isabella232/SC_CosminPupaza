@@ -38,7 +38,16 @@ This creates a new podfile. Next, I open my podfile in my text editor.
 open podfile
 ```
 
-At this point, I need to speficy the target to use frameworks instead of static libaries and then I add the FBSnapshotTestCase dependency. I save the pod, return to my terminal and install the pods.
+At this point, I need to specify my testing target to use frameworks instead of static libaries and then I add the FBSnapshotTestCase dependency. 
+
+```
+target "Tests" do
+  use_frameworks!
+  pod 'FBSnapshotTestCase'
+end
+```
+
+I save the pod, return to my terminal and install the pods.
 
 ```
 pod install
