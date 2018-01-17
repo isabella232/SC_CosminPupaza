@@ -2,11 +2,11 @@
 
 ## Screencast Title
 
-`FBSnapshotTestCase`: Testing the UI
+`iOSSnapshotTestCase `: Testing the UI
 
 ## Screencast Description
 
-Learn all you need to know about `FBSnapshotTestCase`, a very popular UI snapshot testing framework developed by Facebook.
+Learn all you need to know about `iOSSnapshotTestCase `, a very popular UI snapshot testing framework developed by Facebook.
 
 ## Language, Editor and Platform versions used in this screencast
 
@@ -14,13 +14,13 @@ Learn all you need to know about `FBSnapshotTestCase`, a very popular UI snapsho
 * **Platform:** iOS 11
 * **Editor**: Xcode 9
 
-# FBSnapshotTestCase: Testing the UI
+# iOSSnapshotTestCase: Testing the UI
 
 ## Introduction
 
-Hey what’s up everybody, this is Brian. In today's screencast I'm going to introduce you to a very popular UI testing framework developed by Facebook called `FBSnapshotTestCase`.
+Hey what’s up everybody, this is Brian. In today's screencast I'm going to introduce you to a very popular UI testing framework called `iOSSnapshotTestCase`. iOSSnapshotTestCase was orignally developed by Facebook but is now being managed by the folks at Uber.
 
-`FBSnapshotTestCase` tests your app's user interface by taking a snapshot of the UI and comparing it to a reference one. If both images are the same, the test succeeds. Otherwise, it fails. It's as simple as that! 
+`iOSSnapshotTestCase ` tests your app's user interface by taking a snapshot of the UI and comparing it to a reference one. If both images are the same, the test succeeds. Otherwise, it fails. It's as simple as that! 
 
 Before we begin, if you do not have any unit testing experience, then check out our course. Testing in iOS. This will get you up to speed in no time.
 
@@ -30,7 +30,13 @@ Also, I would like to thank Cosmin Pupăză for preparing the materials for this
 
 The app you are going to test in this screencast is a simple color picker. It generates a custom color and uses it to set the app's main screen background. I'm going to write some tests for it.
 
-To get started, I first need to install FBSnapshotTestCase. I'll do this by way of Cocoa. First I open terminal and navigate to the project folder and type `podfile init'.
+To get started, I first need to install iOSSnapshotTestCase. I'll do this by way of cocoapods. 
+
+```
+pod init
+```
+
+First I open terminal and navigate to the project folder and type `podfile init'.
 
 This creates a new podfile. Next, I open my podfile in my text editor.
 
@@ -38,12 +44,12 @@ This creates a new podfile. Next, I open my podfile in my text editor.
 open podfile
 ```
 
-At this point, I need to specify my testing target to use frameworks instead of static libaries and then I add the FBSnapshotTestCase dependency. 
+At this point, I need to specify my testing target to use frameworks instead of static libaries and then I add the iOSSnapshotTestCase dependency. 
 
 ```
 target "Tests" do
   use_frameworks!
-  pod 'FBSnapshotTestCase'
+  pod 'iOSSnapshotTestCase'
 end
 ```
 
@@ -53,25 +59,27 @@ I save the pod, return to my terminal and install the pods.
 pod install
 ```
 
-With FBSnapshot installed, I open my workspace and update my project to the reccommended settings. I compile both my targets. You'll notice that compiling the FBSnapshotTestCase produces a lot of warnings, but it doesn't cause any issues with the running it. 
+With iOSSnapshotTestCase installed, I open my workspace and update my project to the reccommended settings. I compile both my targets. **You'll notice that compiling the iOSSnapshotTestCase produces a lot of warnings, but it doesn't cause any issues with the running it.** NOTE TO EDITOR - Please cut this line 
  
 Before running any test, I need to define some folder paths where the snapshots will be saved. To do this, I click the Edit Scheme button. I Add the `FB_REFERENCE_IMAGE_DIR` and `IMAGE_DIFF_DIR` environment variables to the `Color Picker` scheme's run settings and configure their values. The former sets the reference snapshots folder, while the latter takes care of the test images location:
 
 ```
-FB_REFERENCE_IMAGE_DIR  $(SOURCE_ROOT)/Tests/Original Images
-IMAGE_DIFF_DIR          $(SOURCE_ROOT)/Tests/Different Images
+FB_REFERENCE_IMAGE_DIR  $(SOURCE_ROOT)/$(PROJECT_NAME)Tests/ReferenceImages
+IMAGE_DIFF_DIR          $(SOURCE_ROOT)/$(PROJECT_NAME)Tests/FailureDiffs
 ```
 
-Next I open Tests.swift and import the `FBSnapshotCase` framework. I also import the `ColorPicker` module making sure to make it @testable. Finally I make the`Tests` class extend `FBSnapshotTestCase`.
+Next I open Tests.swift and import the `iOSSnapshotTestCase ` framework. I also import the `ColorPicker` module making sure to make it @testable. Finally I make the`Tests` class extend `FBSnapshotTestCase`.
 
 ```
 import FBSnapshotTestCase
-@testable import Color_Picker
+@testable import ColorPicker
 
 class Tests: FBSnapshotTestCase {
     
 }
 ```
+At the time of this recording, the framework is prefixed with FB. This was obviously in reference to Facebook, the orginal creators of this framework. In time, this may change so if you run into errors, definitely check out the project github page.
+
 I'll be using the same view controller in each of my tests, so instead of creating a new view controller for each test case, I store a view controller in an instance variable. 
 
 ```
@@ -102,7 +110,7 @@ snapshot.
 
 Now I want to properly run my test. so I set the `recordMode` property to `false` in the `setUp()` method. 
 
-Following the red - green refactor metholology, I make sure my new test fails. I open Interface Builder and set the view background color to white.  
+Following the red	- green refactor metholology, I make sure my new test fails. I open Interface Builder and set the view background color to white.  
 
 I run the test. As expected, it fails. I check the test snapshots folder to see what went wrong. The view reference snapshot has three corresponding view testing images: the right one, the wrong one and one that highligts the differences between the previous two. Notice each test method's name in the corresponding test image - you can't ever mix them up.
 
@@ -110,13 +118,13 @@ Now I want the test to pass so I return back to my main storyboard and set the v
 
 ## Camera
 
-As you can see, FBSnapshotTestCase is another useful tool in our testing toolbox to make sure our UI looks as we intended. It also comes with other features. You can also test subviews in the view hierarchy, you can test layers, and it works great the UIApperrance proxy.
+As you can see, iOSSnapshotTestCase is another useful tool in our testing toolbox to make sure our UI looks as we intended. It also comes with other features. You can also test subviews in the view hierarchy, you can test layers, and it works great the UIApperrance proxy.
 
 Let's see these in action.
 
 ## Demo
 
-Okay, now to take the FBSnapshotTestCase to the next level by 
+Okay, now to take the iOSSnapshotTestCase to the next level by 
 testing a certain subview in the view's hierarchy instead of the whole view. I'll do this by adding the `testSwitch()` test method to the `Tests` class. I need need to load the view controller's view first in order to access its subviews by calling the view controller's `view` property. Then I test the switch as I would do with any other view.  
 
 ```
@@ -126,7 +134,7 @@ func testSwitch() {
 }
 ```  
 
-Next I set the `recordMode` property to `true` in the `setUp()` method and run the test. Since I'm recording, the test fails as expected. Remember, when I set the recordMode to true, I'm not actually testing, but getting a reference snapshot to run my tests against.
+Next I set the `recordMode` property to `true` and run the test. Since I'm recording, the test fails as expected. Remember, when I set the recordMode to true, I'm not actually testing, but getting a reference snapshot to run my tests against.
 
 With that done, I need to get to my red state for my test. I set the `recordMode` property to `false`, then open the main storyboard. I change the switch's state to `On` in the storyboard and run it once more. It fails now. Like the previous test, I can review the switch's three test snapshots are created at the specific location to see why the test is failing.
 
@@ -176,24 +184,9 @@ func testSwitchLayer() {
 
 Now set the `recordMode` property to `true` and run the test. It fails and the switch layer's reference snapshot is created in its corresponding folder.
 
-Now for the rest state. I set the `recordMode` property to `false`. In interface builder, I change the switch layer's corner radius by adding a user defined runtime attribute. For the keypath, I use `layer.cornerRadius'. I set the 'Type' to be `Number`, and enter `30` for `Value`. I also Check the switch's 'Clip to Bounds' option and run the test once more. It fails now as I expect. Now I remove the User attibute and uncheck the clip to bounds and when I run, the test goes green.
+Now for the re state. I set the `recordMode` property to `false`. In interface builder, I change the switch layer's corner radius by adding a user defined runtime attribute. For the keypath, I use `layer.cornerRadius'. I set the 'Type' to be `Number`, and enter `30` for `Value`. I also Check the switch's 'Clip to Bounds' option and run the test once more. It fails now as I expect. Now I remove the User attibute and uncheck the clip to bounds and when I run, the test goes green.
 
-I can also test the switch's view and layer in the same test method. To get started, I open my main storyboard, and change the state of my switch to `Off`. Back in Tests.swift, I add the `testSwitchViewAndLayer()`. First I load the view controller's view and add identifiers to both the view and layer test function calls like before. 
-        
-``` 
-func testSwitchViewAndLayer() {
-	_ = controller.view
-    
-	FBSnapshotVerifyView(controller.alphaSwitch, identifier: "view")
-	FBSnapshotVerifyLayer(controller.alphaSwitch.layer, identifier: "layer")
- }
-``` 
- 
-Next I set the `recordMode` property to `true` and get my baseline. 
-
-Next, I set the `recordMode` property to `false`. I open my storyboard and set the 'Clip to Bounds' option. I also add back my runtime attribute. I run the test and I get the red state. I return back to my storyboard and uncheck the clips to bounds and remove the runtime attribute. Now when I run, my test goes green.
-
-Finally, the `FBSnapshotTestCase` works well with the `UIAppearance` proxy. To get this working, I open ColorController.swift, and I add `viewDidLoad()`. It uses the `UIAppearance` proxy to set all of the labels text color to gray in one go: 
+Finally, the `iOSSnapshotTestCase ` works well with the `UIAppearance` proxy. To get this working, I open ColorController.swift, and I add `viewDidLoad()`. It uses the `UIAppearance` proxy to set all of the labels text color to gray in one go: 
 
 ```
 override func viewDidLoad() {
@@ -226,9 +219,9 @@ I run the test and it fails. Now, I go back to ColorCoontroller.swift and change
     
 ## Conclusion
 
-`FBSnapshotTestCase` provides a lot of useful features that makes our testing easier. As the developers mention, you can handle issues by writing a lot of assert statements, but those are hard to visualize. Instead, you can see exactly what you can see exactly what is going on by a mere screenshot. 
+`iOSSnapshotTestCase ` provides a lot of useful features that makes our testing easier. As the developers mention, you can handle issues by writing a lot of assert statements, but those are hard to visualize. Instead, you can see exactly what you can see exactly what is going on by a mere screenshot. 
 
- If you want to learn more about the framework, check out its GitHub page:
+As mentioned, with transfer of ownership from Facebook to Uber, you can expect a lot of changes. Definitely check out the github page to keep track of all the latest updates
 
 https://github.com/facebookarchive/ios-snapshot-test-case
 
@@ -241,4 +234,4 @@ Do you know how many testers it takes to change a light bulb? None: testers do n
 
  
  
- 
+ `
