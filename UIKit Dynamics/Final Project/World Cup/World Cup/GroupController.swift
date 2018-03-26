@@ -29,6 +29,8 @@
 import UIKit
 
 class GroupController: UIViewController {
+  var color: UIColor!
+  
   @IBOutlet weak var groupLabel: UILabel!
   @IBOutlet weak var firstTeamLabel: UILabel!
   @IBOutlet weak var secondTeamLabel: UILabel!
@@ -37,13 +39,14 @@ class GroupController: UIViewController {
   
   func setLabels(group: Group) {
     groupLabel.text = group.name
+    groupLabel.textColor = color
     let outlets = [firstTeamLabel, secondTeamLabel, thirdTeamLabel, fourthTeamLabel]
-    
     for index in 0...3 {
       guard let label = outlets[index] else {
         continue
       }
       label.text = group.teams[index]
+      label.textColor = color
     }
   }
 }
