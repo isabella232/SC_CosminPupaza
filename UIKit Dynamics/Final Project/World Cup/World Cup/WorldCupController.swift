@@ -95,14 +95,15 @@ class WorldCupController: UIViewController {
     var stop = CGPoint(x: self.view.bounds.size.width, y: boundary)
     collision.addBoundary(withIdentifier: "1" as NSCopying, from: start, to: stop)
     
-    start.y = 0
-    stop.y = 0
+    start.y = -(gravity.magnitude - 1)
+    stop.y = -(gravity.magnitude - 1)
     collision.addBoundary(withIdentifier: "2" as NSCopying, from: start, to: stop)
     
     collision.collisionDelegate = self
     gravity.addItem(controller.view)
     
     let itemBehavior = UIDynamicItemBehavior(items: [controller.view])
+    itemBehavior.allowsRotation = false
     animator.addBehavior(itemBehavior)
     
     return controller.view
@@ -176,6 +177,11 @@ class WorldCupController: UIViewController {
     if pinView {
       if !pinnedView {
         snap = UISnapBehavior(item: subview, snapTo: view.center)
+//        snap.damping = 0.1
+//        snap.snapPoint = CGPoint(x: view.center.x, y: view.center.y - 20)
+        let point = CGPoint(x: view.center.x, y: view.center.y - (gravity.magnitude - 1))
+        snap.snapPoint = point
+        
         animator.addBehavior(snap)
         setVisible(alpha: 0, subview: subview)
         pinnedView = true
