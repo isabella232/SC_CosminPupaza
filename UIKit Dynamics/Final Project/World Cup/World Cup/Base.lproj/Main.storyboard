@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vz6-e1-w78">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vz6-e1-w78">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,34 +47,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eul-4e-O7t">
-                                <rect key="frame" x="164" y="20" width="47.5" height="21"/>
+                                <rect key="frame" x="164" y="15" width="47" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Second Team " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwf-SS-MaB">
-                                <rect key="frame" x="133" y="338" width="109" height="21"/>
+                                <rect key="frame" x="133" y="333" width="109" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Third Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aKu-R0-swu">
-                                <rect key="frame" x="144.5" y="379" width="86" height="21"/>
+                                <rect key="frame" x="144.5" y="374" width="86" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fourth Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udW-vQ-2Vd">
-                                <rect key="frame" x="139.5" y="420" width="96.5" height="21"/>
+                                <rect key="frame" x="139" y="415" width="97" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="goal" translatesAutoresizingMaskIntoConstraints="NO" id="Sxw-ZH-zor">
-                                <rect key="frame" x="34" y="61" width="306" height="216"/>
+                                <rect key="frame" x="34.5" y="56" width="306" height="216"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Team " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VxM-8f-7n9">
-                                <rect key="frame" x="145.5" y="297" width="84" height="21"/>
+                                <rect key="frame" x="145.5" y="292" width="84" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -91,7 +91,7 @@
                             <constraint firstItem="Sxw-ZH-zor" firstAttribute="top" secondItem="Eul-4e-O7t" secondAttribute="bottom" constant="20" id="TdM-r0-VOv"/>
                             <constraint firstItem="udW-vQ-2Vd" firstAttribute="centerX" secondItem="Uf9-vX-xcd" secondAttribute="centerX" id="bA8-50-T0M"/>
                             <constraint firstItem="aKu-R0-swu" firstAttribute="top" secondItem="Nwf-SS-MaB" secondAttribute="bottom" constant="20" id="kJG-Oz-ena"/>
-                            <constraint firstItem="Eul-4e-O7t" firstAttribute="top" secondItem="Uf9-vX-xcd" secondAttribute="top" constant="20" id="mME-ls-Lcg"/>
+                            <constraint firstItem="Eul-4e-O7t" firstAttribute="top" secondItem="Uf9-vX-xcd" secondAttribute="top" constant="15" id="mME-ls-Lcg"/>
                             <constraint firstItem="Nwf-SS-MaB" firstAttribute="centerX" secondItem="Uf9-vX-xcd" secondAttribute="centerX" id="wZ4-jE-tqD"/>
                             <constraint firstItem="Eul-4e-O7t" firstAttribute="centerX" secondItem="Uf9-vX-xcd" secondAttribute="centerX" id="yAD-1e-cp1"/>
                         </constraints>
@@ -99,6 +99,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
+                        <outlet property="constraint" destination="mME-ls-Lcg" id="m68-lU-K0f"/>
                         <outlet property="firstTeamLabel" destination="VxM-8f-7n9" id="8hp-hT-IWd"/>
                         <outlet property="fourthTeamLabel" destination="udW-vQ-2Vd" id="yPN-HC-YkD"/>
                         <outlet property="groupLabel" destination="Eul-4e-O7t" id="VOA-eM-YMv"/>

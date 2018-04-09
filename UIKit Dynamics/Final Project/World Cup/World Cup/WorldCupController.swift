@@ -29,55 +29,93 @@
 import UIKit
 
 class WorldCupController: UIViewController {
-  let groups = ["Group A": ["Russia", "Uruguay", "Egypt", "Saudi Arabia"], "Group B": ["Spain", "Portugal", "Iran", "Morocco"], "Group C": ["France", "Denmark", "Australia", "Peru"],
-                "Group D": ["Argentina", "Croatia", "Iceland", "Nigeria"], "Group E": ["Brazil", "Switzerland", "Serbia", "Costa Rica"], "Group F": ["Germany", "Sweden", "Mexico", "South Korea"],
-                "Group G": ["England", "Belgium", "Tunisia", "Panama"], "Group H": ["Poland", "Colombia", "Japan", "Senegal"]]
   
-  let sky = UIColor(red: 116 / 255, green: 124 / 255, blue: 191 / 255, alpha: 1)
-  let grass = UIColor(red: 61 / 255, green: 170 / 255, blue: 87 / 255, alpha: 1)
-
-  var offset: CGFloat = 400
-  var previousPoint = CGPoint.zero
-  var center = CGPoint.zero
-  var centers = [CGPoint]()
-  
-  var draggingView = false
-  var pinnedView = false
+  var offset = Dynamics.height
+  var previousPoint = Dynamics.zero
+ 
+  var draggingView = Dynamics.undragged
+  var pinnedView = Dynamics.unpinned
   var subviews = [UIView]()
   
   var animator: UIDynamicAnimator!
   let gravity = UIGravityBehavior()
   var snap: UISnapBehavior!
   
+  enum Data {
+    static let groups = ["Group A": ["Russia", "Uruguay", "Egypt", "Saudi Arabia"], "Group B": ["Spain", "Portugal", "Iran", "Morocco"], "Group C": ["France", "Denmark",
+                         "Australia",  "Peru"],  "Group D": ["Argentina", "Croatia", "Iceland", "Nigeria"], "Group E": ["Brazil", "Switzerland", "Serbia", "Costa Rica"],
+                         "Group F": ["Germany", "Sweden", "Mexico", "South Korea"], "Group G": ["England", "Belgium", "Tunisia", "Panama"], "Group H": ["Poland", "Colombia", "Japan", "Senegal"]]
+    static let noTeams: UIView? = nil
+  }
+  
+  enum Storyboard {
+    static let name = "Main"
+    static let groupController = "group"
+    static let mainBundle: Bundle? = nil
+    static let noView: UIView? = nil
+  }
+  
+  enum Colors {
+    static let sky = UIColor(red: 116 / 255, green: 124 / 255, blue: 191 / 255, alpha: 1)
+    static let grass = UIColor(red: 61 / 255, green: 170 / 255, blue: 87 / 255, alpha: 1)
+    static let denominator = 2
+    static let remainder = 0
+  }
+  
+  enum Dynamics {
+    static let height: CGFloat = 400
+    static let zero = CGPoint.zero
+    static let groupOffset: CGFloat = 50
+    static let dragOffset: CGFloat = 350
+    static let pinOffset: CGFloat = 100
+    static let boundaryOffset: CGFloat = 3
+    static let xOffset: CGFloat = 0
+    static let magnitude: CGFloat = 4
+    static let dragged = true
+    static let undragged = false
+    static let velocity: CGFloat = 0.5
+    static let random = 50
+    static let pinned = true
+    static let unpinned = false
+    static let pinConstraint: CGFloat = 30
+    static let unpinConstraint: CGFloat = 15
+    static let transparent: CGFloat = 0
+    static let opaque: CGFloat = 1
+    static let noBehavior: UIDynamicItemBehavior? = nil
+    static let noRotation = false
+  }
+  
+  enum Boundary: String {
+    case up
+    case down
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     animator = UIDynamicAnimator(referenceView: view)
     animator.addBehavior(gravity)
-    gravity.magnitude = 4
+    gravity.magnitude = Dynamics.magnitude
     
-    let names = Array(groups.keys).sorted()
-    for name in names {
-      guard let index = names.index(of: name), let subview = addGroup(name: name, index: index, offset: offset) else {
-        continue
-      }
-      subviews.append(subview)
-      centers.append(subview.center)
-      offset -= 50
+    let names = Array(Data.groups.keys).sorted()
+    _ = names.map{guard let index = names.index(of: $0), let subview = addGroup(name: $0, index: index, offset: offset) else {return}
+                  subviews.append(subview)
+                  offset -= Dynamics.groupOffset}
     }
-  }
   
   func addGroup(name: String, index: Int, offset: CGFloat) -> UIView? {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let controller = storyboard.instantiateViewController(withIdentifier: "group") as! GroupController
-    let frame = view.bounds.offsetBy(dx: 0, dy: view.bounds.size.height - offset)
+    let storyboard = UIStoryboard(name: Storyboard.name, bundle: Storyboard.mainBundle)
+    guard let controller = storyboard.instantiateViewController(withIdentifier: Storyboard.groupController) as? GroupController else {
+      return Storyboard.noView
+    }
+    let frame = view.bounds.offsetBy(dx: Dynamics.xOffset, dy: view.bounds.size.height - offset)
     controller.view.frame = frame
     
-    guard let teams = groups[name] else {
-      return nil
+    guard let teams = Data.groups[name] else {
+      return Data.noTeams
     }
     let group = Group(name: name, teams: teams)
-    controller.color = index % 2 == 0 ? .green : .blue
-    controller.view.backgroundColor = index % 2 == 0 ? sky: grass
+    controller.color = index % Colors.denominator == Colors.remainder ? .green : .blue
+    controller.view.backgroundColor = index % Colors.denominator == Colors.remainder ? Colors.sky: Colors.grass
     controller.setLabels(group: group)
    
     addChildViewController(controller)
@@ -91,19 +129,19 @@ class WorldCupController: UIViewController {
     animator.addBehavior(collision)
     
     let boundary = controller.view.frame.origin.y + controller.view.frame.size.height
-    var start = CGPoint(x: 0, y: boundary)
-    var stop = CGPoint(x: self.view.bounds.size.width, y: boundary)
-    collision.addBoundary(withIdentifier: "1" as NSCopying, from: start, to: stop)
+    var start = CGPoint(x: Dynamics.xOffset, y: boundary)
+    var stop = CGPoint(x: view.bounds.size.width, y: boundary)
+    collision.addBoundary(withIdentifier: Boundary.down.rawValue as NSCopying, from: start, to: stop)
     
-    start.y = -(gravity.magnitude - 1)
-    stop.y = -(gravity.magnitude - 1)
-    collision.addBoundary(withIdentifier: "2" as NSCopying, from: start, to: stop)
+    start.y = -Dynamics.boundaryOffset
+    stop.y = -Dynamics.boundaryOffset
+    collision.addBoundary(withIdentifier: Boundary.up.rawValue as NSCopying, from: start, to: stop)
     
     collision.collisionDelegate = self
     gravity.addItem(controller.view)
     
     let itemBehavior = UIDynamicItemBehavior(items: [controller.view])
-    itemBehavior.allowsRotation = false
+    itemBehavior.allowsRotation = Dynamics.noRotation
     animator.addBehavior(itemBehavior)
     
     return controller.view
@@ -117,113 +155,101 @@ class WorldCupController: UIViewController {
     switch recognizer.state {
       case .began:
         let dragPoint = recognizer.location(in: recognizerView)
-        if dragPoint.y < 350 {
-          draggingView = true
+        if dragPoint.y < Dynamics.dragOffset {
+          draggingView = Dynamics.dragged
           previousPoint = touchPoint
-          guard let index = subviews.index(of: recognizerView) else {
-            break
-          }
-          center = centers[index]
         }
       case .changed:
         if draggingView {
           let offset = touchPoint.y - previousPoint.y
           let yCenter = recognizerView.center.y + offset
-          let yCoordinate: CGFloat
-          switch yCenter {
-            case center.y...:
-              yCoordinate = center.y
-            default:
-              yCoordinate = yCenter
-          }
-         recognizerView.center = CGPoint(x: center.x, y: yCoordinate)
-         previousPoint = touchPoint
+          recognizerView.center = CGPoint(x: recognizerView.center.x, y: yCenter)
+          previousPoint = touchPoint
         }
       case .ended:
         if draggingView {
           pin(subview: recognizerView)
           addVelocity(recognizer: recognizer, subview: recognizerView)
           animator.updateItem(usingCurrentState: recognizerView)
-          draggingView = false
-         }
+          draggingView = Dynamics.undragged
+        }
       default:
         break
     }
   }
   
- func getBehavior(subview: UIView) -> UIDynamicItemBehavior? {
-    for behavior in animator.behaviors {
-      guard let item = behavior as? UIDynamicItemBehavior else {
-        continue
-      }
-      if item.items.first as! UIView == subview {
-        return item
-      }
+  func getItemBehavior(subview: UIView) -> UIDynamicItemBehavior? {
+    let itemBehaviors = animator.behaviors.filter{guard let itemBehavior = $0 as? UIDynamicItemBehavior, let item = itemBehavior.items.first, item as? UIView == subview else {return false}
+                                                  return true}
+    guard let behavior = itemBehaviors.first, let itemBehavior = behavior as? UIDynamicItemBehavior else {
+      return Dynamics.noBehavior
     }
-    return nil
+    return itemBehavior
   }
   
   func addVelocity(recognizer: UIPanGestureRecognizer, subview: UIView) {
     var velocity = recognizer.velocity(in: view)
-    velocity.x = 0
-    guard let behavior = getBehavior(subview: subview) else {
+    velocity.x = Dynamics.xOffset
+    guard let itemBehavior = getItemBehavior(subview: subview) else {
       return
     }
-    behavior.addLinearVelocity(velocity, for: subview)
+    itemBehavior.addLinearVelocity(velocity, for: subview)
    }
   
-  func pin(subview: UIView) {
-    let pinView = subview.frame.origin.y < 100
-    if pinView {
-      if !pinnedView {
-        snap = UISnapBehavior(item: subview, snapTo: view.center)
-//        snap.damping = 0.1
-//        snap.snapPoint = CGPoint(x: view.center.x, y: view.center.y - 20)
-        let point = CGPoint(x: view.center.x, y: view.center.y - (gravity.magnitude - 1))
-        snap.snapPoint = point
-        
-        animator.addBehavior(snap)
-        setVisible(alpha: 0, subview: subview)
-        pinnedView = true
-      }
-    } else {
-      if pinnedView {
-        animator.removeBehavior(snap)
-        setVisible(alpha: 1, subview: subview)
-        pinnedView = false
-      }
+  func updateConstraint(subview: UIView, value: CGFloat) {
+    guard let controller = childViewControllers.filter({$0.view == subview}).first, let group = controller as? GroupController else {
+      return
     }
+    group.constraint.constant = value
   }
   
   func setVisible(alpha: CGFloat, subview: UIView) {
     _ = subviews.filter{$0 != subview}.map{$0.alpha = alpha}
+  }
+  
+  func pin(subview: UIView) {
+    let pinView = subview.frame.origin.y < Dynamics.pinOffset
+    if pinView {
+      if !pinnedView {
+        let point = CGPoint(x: view.center.x, y: view.center.y - Dynamics.boundaryOffset)
+        snap = UISnapBehavior(item: subview, snapTo: point)
+        animator.addBehavior(snap)
+        updateConstraint(subview: subview, value: Dynamics.pinConstraint)
+        setVisible(alpha: Dynamics.transparent, subview: subview)
+        pinnedView = Dynamics.pinned
+      }
+    } else {
+      if pinnedView {
+        animator.removeBehavior(snap)
+        updateConstraint(subview: subview, value: Dynamics.unpinConstraint)
+        setVisible(alpha: Dynamics.opaque, subview: subview)
+        pinnedView = Dynamics.unpinned
+      }
+    }
   }
 }
 
 // MARK: - UICollisionBehaviorDelegate
 extension WorldCupController: UICollisionBehaviorDelegate {
   func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
-    switch identifier as! String {
-      case "1":
-        let subview = item as! UIView
-        guard let behavior = getBehavior(subview: subview) else {
+    guard let value = identifier as? String, let boundary = Boundary(rawValue: value) else {
+      return
+    }
+    switch boundary {
+      case .up:
+        guard let subview = item as? UIView else {
           break
         }
-        var velocity = behavior.linearVelocity(for: subview)
-        velocity.x = 0
-        let otherSubviews = subviews.filter{$0 != subview}
-        for otherView in otherSubviews {
-          guard let otherBehavior = getBehavior(subview: otherView) else {
-            continue
-          }
-          let bounce = 0.5 * velocity.y + CGFloat(arc4random() % 50)
-          velocity.y = bounce
-          otherBehavior.addLinearVelocity(velocity, for: otherView)
+        pin(subview: subview)
+      case .down:
+        guard let subview = item as? UIView, let itemBehavior = getItemBehavior(subview: subview) else {
+          break
         }
-      case "2":
-        pin(subview: item as! UIView)
-      default:
-        break
+        var velocity = itemBehavior.linearVelocity(for: subview)
+        velocity.x = Dynamics.xOffset
+        velocity.y = Dynamics.velocity * velocity.y + CGFloat(Int(arc4random()) % Dynamics.random)
+        _ = subviews.filter{$0 != subview}.map{guard let otherItemBehavior = getItemBehavior(subview: $0) else {return}
+                                               otherItemBehavior.addLinearVelocity(velocity, for: $0)}
     }
   }
 }
