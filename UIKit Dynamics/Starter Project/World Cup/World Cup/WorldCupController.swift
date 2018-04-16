@@ -85,7 +85,7 @@ class WorldCupController: UIViewController {
     _ = names.map{guard let index = names.index(of: $0), let subview = addGroup(name: $0, index: index, offset: offset) else {return}
                   subviews.append(subview)
                   offset -= Dynamics.groupOffset}
-    }
+  }
     
   func addGroup(name: String, index: Int, offset: CGFloat) -> UIView? {
     let storyboard = UIStoryboard(name: Storyboard.name, bundle: Storyboard.mainBundle)

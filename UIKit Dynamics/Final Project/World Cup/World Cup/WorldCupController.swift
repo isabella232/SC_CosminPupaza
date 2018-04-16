@@ -101,7 +101,7 @@ class WorldCupController: UIViewController {
     
     gravity.magnitude = Dynamics.magnitude
     animator.addBehavior(gravity)
-    }
+  }
   
   func addGroup(name: String, index: Int, offset: CGFloat) -> UIView? {
     let storyboard = UIStoryboard(name: Storyboard.name, bundle: Storyboard.mainBundle)
