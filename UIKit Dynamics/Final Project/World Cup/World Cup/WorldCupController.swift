@@ -104,15 +104,11 @@ class WorldCupController: UIViewController {
   
   func addGroup(name: String, index: Int, offset: CGFloat) -> UIView? {
     let storyboard = UIStoryboard(name: Storyboard.name, bundle: Storyboard.mainBundle)
-    guard let controller = storyboard.instantiateViewController(withIdentifier: Storyboard.groupController) as? GroupController else {
-      return Storyboard.noView
-    }
+    guard let controller = storyboard.instantiateViewController(withIdentifier: Storyboard.groupController) as? GroupController else {return Storyboard.noView}
     let frame = view.bounds.offsetBy(dx: Dynamics.xOffset, dy: view.bounds.size.height - offset)
     controller.view.frame = frame
     
-    guard let teams = Data.groups[name] else {
-      return Data.noTeams
-    }
+    guard let teams = Data.groups[name] else {return Data.noTeams}
     let group = Group(name: name, teams: teams)
     controller.color = index % Colors.denominator == Colors.remainder ? .green : .blue
     controller.view.backgroundColor = index % Colors.denominator == Colors.remainder ? Colors.sky: Colors.grass
@@ -149,9 +145,7 @@ class WorldCupController: UIViewController {
   
   @objc func handlePan(recognizer: UIPanGestureRecognizer) {
     let touchPoint = recognizer.location(in: view)
-    guard let recognizerView = recognizer.view else {
-      return
-    }
+    guard let recognizerView = recognizer.view else {return}
     switch recognizer.state {
       case .began:
         let dragPoint = recognizer.location(in: recognizerView)
@@ -181,25 +175,19 @@ class WorldCupController: UIViewController {
   func getItemBehavior(subview: UIView) -> UIDynamicItemBehavior? {
     let itemBehaviors = animator.behaviors.filter{guard let itemBehavior = $0 as? UIDynamicItemBehavior, let item = itemBehavior.items.first, item as? UIView == subview else {return false}
                                                   return true}
-    guard let behavior = itemBehaviors.first, let itemBehavior = behavior as? UIDynamicItemBehavior else {
-      return Dynamics.noBehavior
-    }
+    guard let behavior = itemBehaviors.first, let itemBehavior = behavior as? UIDynamicItemBehavior else {return Dynamics.noBehavior}
     return itemBehavior
   }
   
   func addVelocity(recognizer: UIPanGestureRecognizer, subview: UIView) {
     var velocity = recognizer.velocity(in: view)
     velocity.x = Dynamics.xOffset
-    guard let itemBehavior = getItemBehavior(subview: subview) else {
-      return
-    }
+    guard let itemBehavior = getItemBehavior(subview: subview) else {return}
     itemBehavior.addLinearVelocity(velocity, for: subview)
    }
   
   func updateConstraint(subview: UIView, value: CGFloat) {
-    guard let controller = childViewControllers.filter({$0.view == subview}).first, let group = controller as? GroupController else {
-      return
-    }
+    guard let controller = childViewControllers.filter({$0.view == subview}).first, let group = controller as? GroupController else {return}
     group.constraint.constant = value
   }
   
@@ -232,19 +220,13 @@ class WorldCupController: UIViewController {
 // MARK: - UICollisionBehaviorDelegate
 extension WorldCupController: UICollisionBehaviorDelegate {
   func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
-    guard let value = identifier as? String, let boundary = Boundary(rawValue: value) else {
-      return
-    }
+    guard let value = identifier as? String, let boundary = Boundary(rawValue: value) else {return}
     switch boundary {
       case .up:
-        guard let subview = item as? UIView else {
-          break
-        }
+        guard let subview = item as? UIView else {break}
         pin(subview: subview)
       case .down:
-        guard let subview = item as? UIView, let itemBehavior = getItemBehavior(subview: subview) else {
-          break
-        }
+        guard let subview = item as? UIView, let itemBehavior = getItemBehavior(subview: subview) else {break}
         var velocity = itemBehavior.linearVelocity(for: subview)
         velocity.x = Dynamics.xOffset
         velocity.y = Dynamics.velocity * velocity.y + CGFloat(Int(arc4random()) % Dynamics.random)
