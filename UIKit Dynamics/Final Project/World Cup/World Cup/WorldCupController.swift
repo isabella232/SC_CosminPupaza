@@ -30,17 +30,6 @@ import UIKit
 
 class WorldCupController: UIViewController {
   
-  var offset = Dynamics.height
-  var previousPoint = Dynamics.zero
- 
-  var draggingView = Dynamics.undragged
-  var pinnedView = Dynamics.unpinned
-  var subviews = [UIView]()
-  
-  var animator: UIDynamicAnimator!
-  let gravity = UIGravityBehavior()
-  var snap: UISnapBehavior!
-  
   enum Data {
     static let groups = ["Group A": ["Russia", "Uruguay", "Egypt", "Saudi Arabia"], "Group B": ["Spain", "Portugal", "Iran", "Morocco"], "Group C": ["France", "Denmark",
                          "Australia",  "Peru"],  "Group D": ["Argentina", "Croatia", "Iceland", "Nigeria"], "Group E": ["Brazil", "Switzerland", "Serbia", "Costa Rica"],
@@ -90,16 +79,28 @@ class WorldCupController: UIViewController {
     case down
   }
   
+  var offset = Dynamics.height
+  var previousPoint = Dynamics.zero
+ 
+  var subviews = [UIView]()
+  var draggingView = Dynamics.undragged
+  var pinnedView = Dynamics.unpinned
+  
+  var animator: UIDynamicAnimator!
+  let gravity = UIGravityBehavior()
+  var snap: UISnapBehavior!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    animator = UIDynamicAnimator(referenceView: view)
-    animator.addBehavior(gravity)
-    gravity.magnitude = Dynamics.magnitude
+     animator = UIDynamicAnimator(referenceView: view)
     
     let names = Array(Data.groups.keys).sorted()
     _ = names.map{guard let index = names.index(of: $0), let subview = addGroup(name: $0, index: index, offset: offset) else {return}
                   subviews.append(subview)
                   offset -= Dynamics.groupOffset}
+    
+    gravity.magnitude = Dynamics.magnitude
+    animator.addBehavior(gravity)
     }
   
   func addGroup(name: String, index: Int, offset: CGFloat) -> UIView? {

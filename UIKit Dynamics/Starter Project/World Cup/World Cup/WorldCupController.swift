@@ -29,18 +29,18 @@
 import UIKit
 
 class WorldCupController: UIViewController {
-  var offset: CGFloat = Dynamics.height
-  
   enum Data {
     static let groups = ["Group A": ["Russia", "Uruguay", "Egypt", "Saudi Arabia"], "Group B": ["Spain", "Portugal", "Iran", "Morocco"], "Group C": ["France", "Denmark",
                          "Australia",  "Peru"],  "Group D": ["Argentina", "Croatia", "Iceland", "Nigeria"], "Group E": ["Brazil", "Switzerland", "Serbia", "Costa Rica"],
                          "Group F": ["Germany", "Sweden", "Mexico", "South Korea"], "Group G": ["England", "Belgium", "Tunisia", "Panama"], "Group H": ["Poland", "Colombia", "Japan", "Senegal"]]
+    static let noTeams: UIView? = nil
   }
   
   enum Storyboard {
     static let name = "Main"
     static let groupController = "group"
     static let mainBundle: Bundle? = nil
+    static let noView: UIView? = nil
   }
   
   enum Colors {
@@ -52,24 +52,48 @@ class WorldCupController: UIViewController {
   
   enum Dynamics {
     static let height: CGFloat = 400
+    static let zero = CGPoint.zero
     static let groupOffset: CGFloat = 50
+    static let dragOffset: CGFloat = 350
+    static let pinOffset: CGFloat = 100
+    static let boundaryOffset: CGFloat = 3
+    static let xOffset: CGFloat = 0
+    static let magnitude: CGFloat = 4
+    static let dragged = true
+    static let undragged = false
+    static let velocity: CGFloat = 0.5
+    static let random = 50
+    static let pinned = true
+    static let unpinned = false
+    static let pinConstraint: CGFloat = 30
+    static let unpinConstraint: CGFloat = 15
+    static let transparent: CGFloat = 0
+    static let opaque: CGFloat = 1
+    static let noBehavior: UIDynamicItemBehavior? = nil
+    static let noRotation = false
   }
   
+  var offset = Dynamics.height
+  var previousPoint = Dynamics.zero
+  
+  var subviews = [UIView]()
+  var draggingView = Dynamics.undragged
+
   override func viewDidLoad() {
     super.viewDidLoad()
     let names = Array(Data.groups.keys).sorted()
-    _ = names.map{guard let index = names.index(of: $0) else {return}
-                  addGroup(name: $0, index: index, offset: offset)
+    _ = names.map{guard let index = names.index(of: $0), let subview = addGroup(name: $0, index: index, offset: offset) else {return}
+                  subviews.append(subview)
                   offset -= Dynamics.groupOffset}
     }
     
-  func addGroup(name: String, index: Int, offset: CGFloat) {
+  func addGroup(name: String, index: Int, offset: CGFloat) -> UIView? {
     let storyboard = UIStoryboard(name: Storyboard.name, bundle: Storyboard.mainBundle)
-    guard let controller = storyboard.instantiateViewController(withIdentifier: Storyboard.groupController) as? GroupController else {return}
+    guard let controller = storyboard.instantiateViewController(withIdentifier: Storyboard.groupController) as? GroupController else {return Storyboard.noView}
     let frame = view.bounds.offsetBy(dx: 0, dy: view.bounds.size.height - offset)
     controller.view.frame = frame
     
-    guard let teams = Data.groups[name] else {return}
+    guard let teams = Data.groups[name] else {return Storyboard.noView}
     let group = Group(name: name, teams: teams)
     controller.color = index % Colors.denominator == Colors.remainder ? .green : .blue
     controller.view.backgroundColor = index % Colors.denominator == Colors.remainder ? Colors.sky: Colors.grass
@@ -78,5 +102,36 @@ class WorldCupController: UIViewController {
     addChildViewController(controller)
     view.addSubview(controller.view)
     controller.didMove(toParentViewController: self)
+    
+    let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
+    controller.view.addGestureRecognizer(pan)
+    
+    return controller.view
+  }
+  
+  @objc func handlePan(recognizer: UIPanGestureRecognizer) {
+    let touchPoint = recognizer.location(in: view)
+    guard let recognizerView = recognizer.view else {return}
+    switch recognizer.state {
+    case .began:
+      let dragPoint = recognizer.location(in: recognizerView)
+      if dragPoint.y < Dynamics.dragOffset {
+        draggingView = Dynamics.dragged
+        previousPoint = touchPoint
+      }
+    case .changed:
+      if draggingView {
+        let offset = touchPoint.y - previousPoint.y
+        let yCenter = recognizerView.center.y + offset
+        recognizerView.center = CGPoint(x: recognizerView.center.x, y: yCenter)
+        previousPoint = touchPoint
+      }
+    case .ended:
+      if draggingView {
+        draggingView = Dynamics.undragged
+      }
+    default:
+      break
+    }
   }
 }
